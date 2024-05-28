@@ -108,3 +108,71 @@ export const acceptMaterialRequest = async (req, res) => {
     }
 
 };
+
+export const deleteMaterialExchange = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+        const materialId = req.params.id;
+
+        const materialExchange = await MaterialExchange.findOne({
+            where: {
+                ExchangeID: materialId,
+                Status: 'Open'
+            }
+        });
+
+        if (!materialExchange) {
+            return res.status(404).json({ error: 'Material exchange not found or already closed' });
+        }
+
+        await materialExchange.destroy();
+        res.status(200).json({
+            message: 'Material exchange deleted successfully'
+        });
+
+    } catch (error) {
+        console.error('Failed to delete material exchange:', error);
+        res.status(500).json({ error: 'Failed to delete material exchange' });
+    }
+};
+
+export const updateMaterialExchange = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+
+        const materialId = req.params.id; // The ID of the material exchange to update
+        const { description, location, city, time, keyword } = req.body; // Fields that can be updated
+
+        const materialExchange = await MaterialExchange.findByPk(materialId);
+
+        if (!materialExchange) {
+            return res.status(404).json({ error: 'Material exchange not found' });
+        }
+
+        if (materialExchange.Status !== 'Open') {
+            return res.status(400).json({ error: 'Material exchange cannot be updated as it is not open' });
+        }
+
+        // Update fields if provided, otherwise keep current values
+        materialExchange.Description = description || materialExchange.Description;
+        materialExchange.Location = location || materialExchange.Location;
+        materialExchange.City = city || materialExchange.City;
+        materialExchange.Time = time || materialExchange.Time;
+        materialExchange.Keyword = keyword || materialExchange.Keyword;
+
+        await materialExchange.save();
+
+        res.status(200).json({
+            message: 'Material exchange updated successfully',
+            materialExchange
+        });
+
+    } catch (error) {
+        console.error('Failed to update material exchange:', error);
+        res.status(500).json({ error: 'Failed to update material exchange' });
+    }
+};
