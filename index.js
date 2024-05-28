@@ -8,8 +8,9 @@ const app = express();
 app.use(express.json());
 
 import userRoutes from './routes/userRoutes.js';
-
+import exchange from './routes/exchangeRoutes.js';
 app.use('/users', userRoutes);
+app.use('/exchange', exchange);
 
 // Middleware to handle errors
 app.use((err, req, res, next) => {
