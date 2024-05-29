@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2024 at 09:18 PM
+-- Generation Time: May 29, 2024 at 08:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -138,15 +138,16 @@ CREATE TABLE `materialexchange` (
   `Time` text NOT NULL,
   `Status` enum('Open','Closed') NOT NULL,
   `ReceiverID` int(11) DEFAULT NULL,
-  `keyword` varchar(255) NOT NULL
+  `keyword` varchar(255) NOT NULL,
+  `type` enum('offer','request') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `materialexchange`
 --
 
-INSERT INTO `materialexchange` (`ExchangeID`, `Description`, `OfferedBy`, `Location`, `City`, `Time`, `Status`, `ReceiverID`, `keyword`) VALUES
-(1, ' cucumber seeds for English cucumber', 1, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Closed', 1, 'seeds');
+INSERT INTO `materialexchange` (`ExchangeID`, `Description`, `OfferedBy`, `Location`, `City`, `Time`, `Status`, `ReceiverID`, `keyword`, `type`) VALUES
+(2, ' cucumber seeds for English cucumber', 1, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Closed', 1, 'tools', 'offer');
 
 -- --------------------------------------------------------
 
@@ -334,7 +335,7 @@ ALTER TABLE `guides`
 -- AUTO_INCREMENT for table `materialexchange`
 --
 ALTER TABLE `materialexchange`
-  MODIFY `ExchangeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ExchangeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `plots`
