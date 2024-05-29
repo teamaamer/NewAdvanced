@@ -2,35 +2,44 @@
 import MaterialExchange from '../models/exchangeModel.js';
 
 export const addMaterialExchange = async (req, res) => {
-    try{
-         if(!req.user){
-             return res.status(401).json({ error: 'User not authenticated' });
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not authenticated' });
         }
-     const userId = req.user.id;
+        const userId = req.user.id;
 
-    const { description, location, city, time, keyword } = req.body;
-        if (!description || !location || !city || !time || !keyword) {
+        const { description, location, city, time, keyword, type } = req.body;
+        if (!description || !location || !city || !time || !keyword || !type) {
             return res.status(400).json({ error: 'All required fields must be provided' });
         }
+        if (type !== 'offer' && type !== 'request') {
+            return res.status(400).json({ error: 'Invalid type specified' });
+        }
 
-        const newMaterialExchange = await MaterialExchange.create({
+        const materialExchangeData = {
             Description: description,
-            OfferedBy: userId,
             Location: location,
             City: city,
             Time: time,
             Status: "Open",
-            keyword: keyword
-        });
+            keyword: keyword,
+            Type: type
+        };
 
-        // Respond with the newly created material exchange entry
+        if (type === 'offer') {
+            materialExchangeData.OfferedBy = userId;
+        } else if (type === 'request') {
+            materialExchangeData.ReceivedBy = userId;
+        }
+        const newMaterialExchange = await MaterialExchange.create(materialExchangeData);
         res.status(201).json(newMaterialExchange);
 
-} catch (error) {
-    console.error('Failed to add material exchange:', error);
-    res.status(500).json({ error: 'Failed to add material exchange' });
-}
+    } catch (error) {
+        console.error('Failed to add material exchange:', error);
+        res.status(500).json({ error: 'Failed to add material exchange' });
+    }
 };
+
 
 
 export const getAllMaterial = async (req, res) => {
@@ -93,10 +102,16 @@ export const acceptMaterialRequest = async (req, res) => {
         if (!materialExchange) {
             return res.status(404).json({ error: 'Material request not found or already closed' });
         }
-        await materialExchange.update({
-            ReceiverID: userId,
-            Status: 'Closed'
-        });
+
+        const updateData = { Status: 'Closed' };
+        if (materialExchange.Type === 'request') {
+            updateData.OfferedBy = userId;  
+        } else if (materialExchange.Type === 'offer') {
+            updateData.ReceivedBy = userId; 
+        }
+
+        await materialExchange.update(updateData);
+        
         res.status(200).json({
             message: 'Material request accepted',
             materialExchange
@@ -106,8 +121,8 @@ export const acceptMaterialRequest = async (req, res) => {
         console.error('Failed to accept material exchange:', error);
         res.status(500).json({ error: 'Failed to accept material exchange' });
     }
-
 };
+
 
 export const deleteMaterialExchange = async (req, res) => {
     try {
@@ -144,8 +159,8 @@ export const updateMaterialExchange = async (req, res) => {
             return res.status(401).json({ error: 'User not authenticated' });
         }
 
-        const materialId = req.params.id; // The ID of the material exchange to update
-        const { description, location, city, time, keyword } = req.body; // Fields that can be updated
+        const materialId = req.params.id; 
+        const { description, location, city, time, keyword } = req.body; 
 
         const materialExchange = await MaterialExchange.findByPk(materialId);
 
@@ -157,7 +172,6 @@ export const updateMaterialExchange = async (req, res) => {
             return res.status(400).json({ error: 'Material exchange cannot be updated as it is not open' });
         }
 
-        // Update fields if provided, otherwise keep current values
         materialExchange.Description = description || materialExchange.Description;
         materialExchange.Location = location || materialExchange.Location;
         materialExchange.City = city || materialExchange.City;
@@ -174,5 +188,70 @@ export const updateMaterialExchange = async (req, res) => {
     } catch (error) {
         console.error('Failed to update material exchange:', error);
         res.status(500).json({ error: 'Failed to update material exchange' });
+    }
+};
+
+export const searchByType = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+        const { type } = req.query;
+        if (!type) {
+            return res.status(400).json({ error: 'Type parameter is required' });
+        }
+
+        const results = await MaterialExchange.find({
+            Type: type,
+            Status: 'Open'
+        });
+
+        res.status(200).json(results);
+    } catch (error) {
+        console.error('Failed to search material exchanges by type:', error);
+        res.status(500).json({ error: 'Failed to search by type' });
+    }
+};
+
+export const searchByKeyword = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+        const { keyword } = req.query;
+        if (!keyword) {
+            return res.status(400).json({ error: 'Type parameter is required' });
+        }
+
+        const results = await MaterialExchange.find({
+            keyword: keyword,
+            Status: 'Open'
+        });
+
+        res.status(200).json(results);
+    } catch (error) {
+        console.error('Failed to search material exchanges by type:', error);
+        res.status(500).json({ error: 'Failed to search by type' });
+    }
+};
+
+export const searchByStatus = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+        const { Status } = req.query;
+        if (!Status) {
+            return res.status(400).json({ error: 'Type parameter is required' });
+        }
+
+        const results = await MaterialExchange.find({
+            Status: Status,
+        });
+
+        res.status(200).json(results);
+    } catch (error) {
+        console.error('Failed to search material exchanges by type:', error);
+        res.status(500).json({ error: 'Failed to search by type' });
     }
 };

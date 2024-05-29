@@ -38,6 +38,11 @@ const MaterialExchange = sequelize.define('MaterialExchange', {
   keyword: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  type: {
+    type: String,
+    enum: ['offer', 'request'],
+    required: true
   }
 
 }, {
