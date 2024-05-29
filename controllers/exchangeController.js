@@ -201,9 +201,10 @@ export const searchByType = async (req, res) => {
             return res.status(400).json({ error: 'Type parameter is required' });
         }
 
-        const results = await MaterialExchange.find({
-            Type: type,
-            Status: 'Open'
+        const results = await MaterialExchange.findAll({
+            where: {
+                type: type,
+            }
         });
 
         res.status(200).json(results);
@@ -223,7 +224,7 @@ export const searchByKeyword = async (req, res) => {
             return res.status(400).json({ error: 'Type parameter is required' });
         }
 
-        const results = await MaterialExchange.find({
+        const results = await MaterialExchange.findAll({
             keyword: keyword,
             Status: 'Open'
         });
