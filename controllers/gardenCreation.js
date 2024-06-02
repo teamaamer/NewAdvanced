@@ -38,6 +38,6 @@ export async function addGarden(req,res){
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'User login failed' });
+        res.status(500).json({ error: 'Cannot Add Garden' });
       }
 };
