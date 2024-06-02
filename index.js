@@ -10,10 +10,12 @@ app.use(express.json());
 import userRoutes from './routes/userRoutes.js';
 import exchange from './routes/exchangeRoutes.js';
 import gardenRouter from './routes/gardenRoutes.js';
+import taskRouter from './routes/taskRoutes.js';
 
 app.use('/users', userRoutes);
 app.use('/exchange', exchange);
 app.use('/gardens', gardenRouter);
+app.use('/tasks', taskRouter);
 
 // Middleware to handle errors
 app.use((err, req, res, next) => {

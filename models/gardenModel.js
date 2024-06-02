@@ -32,7 +32,8 @@ const Garden = sequelize.define('Garden',
         allowNull: false
       }
     }, {
-      timestamps: false, 
+      tableName: 'gardens',
+      timestamps: false
     });
 
 Garden.sync()
