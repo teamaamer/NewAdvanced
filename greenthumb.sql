@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 08:05 AM
+-- Generation Time: Jun 02, 2024 at 01:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -139,15 +139,19 @@ CREATE TABLE `materialexchange` (
   `Status` enum('Open','Closed') NOT NULL,
   `ReceiverID` int(11) DEFAULT NULL,
   `keyword` varchar(255) NOT NULL,
-  `type` enum('offer','request') NOT NULL
+  `type` enum('offer','request') NOT NULL,
+  `postedBy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `materialexchange`
 --
 
-INSERT INTO `materialexchange` (`ExchangeID`, `Description`, `OfferedBy`, `Location`, `City`, `Time`, `Status`, `ReceiverID`, `keyword`, `type`) VALUES
-(2, ' cucumber seeds for English cucumber', 1, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Closed', 1, 'tools', 'offer');
+INSERT INTO `materialexchange` (`ExchangeID`, `Description`, `OfferedBy`, `Location`, `City`, `Time`, `Status`, `ReceiverID`, `keyword`, `type`, `postedBy`) VALUES
+(9, ' cucumber seeds for English cucumber', 2, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Open', NULL, 'seeds', 'offer', 3),
+(10, ' cucumber seeds for English cucumber', NULL, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Open', 2, 'seeds', 'request', 2),
+(11, ' cucumber seeds for English cucumber', 2, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Open', NULL, 'seeds', 'offer', 2),
+(12, ' cucumber seeds for English cucumber', NULL, 'sufian street, Ali store', 'Nablus', 'Monday, 12:30pm', 'Open', 2, 'seeds', 'request', 2);
 
 -- --------------------------------------------------------
 
@@ -197,7 +201,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`, `Role`, `ProfileInfo`, `ProfilePic`) VALUES
-(1, 'Doaa', 'doaa.abd.119@gmail.com', '$2b$10$GMdMO198DBefDZhR7EgKHO2NS/9EWhz7qsn/yy4eM1Npiy/ERGtfC', 'Volunteer', 'info', 'url');
+(1, 'Doaa', 'doaa.abd.119@gmail.com', '$2b$10$GMdMO198DBefDZhR7EgKHO2NS/9EWhz7qsn/yy4eM1Npiy/ERGtfC', 'Volunteer', 'info', 'url'),
+(2, 'Doaa abdalsamad', 'doaa.usl.119@gmail.com', '$2b$10$hkEFSO7y2vOlATwmmEE4leZ1l2IdiotQXZ2u4KPsQD84eSfhLHvcS', 'Manager', 'info', 'url'),
+(3, 'Tester', 'tester@gmail.com', '$2b$10$gV8Z60Xxp4aSDMv3XzRi8OTGlT/K4IgtEKeXRoBkwqtuwTI9YcJxG', 'Manager', 'info', 'url');
 
 --
 -- Indexes for dumped tables
@@ -261,7 +267,8 @@ ALTER TABLE `guides`
 ALTER TABLE `materialexchange`
   ADD PRIMARY KEY (`ExchangeID`),
   ADD KEY `OfferedBy` (`OfferedBy`),
-  ADD KEY `ReceiverID` (`ReceiverID`);
+  ADD KEY `ReceiverID` (`ReceiverID`),
+  ADD KEY `postedBy` (`postedBy`);
 
 --
 -- Indexes for table `plots`
@@ -335,7 +342,7 @@ ALTER TABLE `guides`
 -- AUTO_INCREMENT for table `materialexchange`
 --
 ALTER TABLE `materialexchange`
-  MODIFY `ExchangeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ExchangeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `plots`
@@ -353,7 +360,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -409,7 +416,8 @@ ALTER TABLE `guides`
 --
 ALTER TABLE `materialexchange`
   ADD CONSTRAINT `materialexchange_ibfk_1` FOREIGN KEY (`OfferedBy`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `materialexchange_ibfk_2` FOREIGN KEY (`ReceiverID`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `materialexchange_ibfk_2` FOREIGN KEY (`ReceiverID`) REFERENCES `users` (`UserID`),
+  ADD CONSTRAINT `postedBy` FOREIGN KEY (`postedBy`) REFERENCES `users` (`UserID`);
 
 --
 -- Constraints for table `plots`
