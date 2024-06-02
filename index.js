@@ -16,8 +16,6 @@ app.use('/users', userRoutes);
 app.use('/exchange', exchange);
 app.use('/gardens', gardenRouter);
 
-
-// Middleware to handle errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
