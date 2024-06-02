@@ -11,14 +11,14 @@ import { addMaterialExchange,
 import authMiddleware  from '../middleware/auth.js'; 
 const exchange = express.Router();
 
-exchange.post('/materials',authMiddleware,addMaterialExchange);// add a new material request
-exchange.get('/materials',authMiddleware,getAllMaterial);//get all material information
-exchange.get('/materials/:id',authMiddleware,getMaterialById);//get specific Material Information
-exchange.put('/materials/:id/accept',authMiddleware,acceptMaterialRequest);//accept Material
-exchange.delete('/materials/:id',authMiddleware,deleteMaterialExchange);//accept Material
-exchange.patch('/materials/:id',authMiddleware, updateMaterialExchange);
-exchange.get('/materials/search/type', authMiddleware, searchByType);
-exchange.get('/materials/search/keyword', authMiddleware, searchByKeyword);
+exchange.post('/',authMiddleware,addMaterialExchange);// add a new material request
+exchange.get('/',authMiddleware,getAllMaterial);//get all material information
+exchange.get('/:id',authMiddleware,getMaterialById);//get specific Material Information
+exchange.put('/:id/accept',authMiddleware,acceptMaterialRequest);//accept Material
+exchange.delete('/:id',authMiddleware,deleteMaterialExchange);//accept Material
+exchange.put('/:id',authMiddleware, updateMaterialExchange);
+exchange.get('/search/type', authMiddleware, searchByType);
+exchange.get('/search/keyword', authMiddleware, searchByKeyword);
 
 
 

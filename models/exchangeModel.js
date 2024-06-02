@@ -13,7 +13,7 @@ const MaterialExchange = sequelize.define('MaterialExchange', {
   },
   OfferedBy: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   Location: {
     type: DataTypes.STRING,
@@ -43,7 +43,11 @@ const MaterialExchange = sequelize.define('MaterialExchange', {
     type: String,
     enum: ['offer', 'request'],
     required: true
-  }
+  },
+  postedBy: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
 
 }, {
   tableName: 'materialexchange',  

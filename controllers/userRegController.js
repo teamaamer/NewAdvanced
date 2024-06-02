@@ -15,9 +15,10 @@ try{
     if (password !== confirmPassword) {
         return res.status(400).json({ error: "Passwords do not match." });
     }
-    const existingUser = await User.findOne({ $or: [{ userName }, { email }] });
+
+    const existingUser = await User.findOne({ where: {Email : email} });
     if (existingUser) {
-        return res.status(400).json({ error: "Username or email already exists." });
+        return res.status(400).json({ error: "email already exists." });
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt); 

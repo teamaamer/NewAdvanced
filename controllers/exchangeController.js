@@ -23,13 +23,16 @@ export const addMaterialExchange = async (req, res) => {
             Time: time,
             Status: "Open",
             keyword: keyword,
-            Type: type
+            postedBy: userId
         };
 
         if (type === 'offer') {
             materialExchangeData.OfferedBy = userId;
+            materialExchangeData.type = "offer";
+
         } else if (type === 'request') {
-            materialExchangeData.ReceivedBy = userId;
+            materialExchangeData.ReceiverID = userId;
+            materialExchangeData.type = "request";
         }
         const newMaterialExchange = await MaterialExchange.create(materialExchangeData);
         res.status(201).json(newMaterialExchange);
@@ -99,19 +102,26 @@ export const acceptMaterialRequest = async (req, res) => {
                 Status: 'Open'
             }
         });
+
         if (!materialExchange) {
             return res.status(404).json({ error: 'Material request not found or already closed' });
         }
-
-        const updateData = { Status: 'Closed' };
-        if (materialExchange.Type === 'request') {
-            updateData.OfferedBy = userId;  
-        } else if (materialExchange.Type === 'offer') {
-            updateData.ReceivedBy = userId; 
+        if(materialExchange.postedBy==userId) {
+            return res.status(404).json({ error: 'cannot accept your own request' });
         }
 
-        await materialExchange.update(updateData);
-        
+
+        // Prepare the updates based on the type of the exchange
+        const updates = { Status: 'Closed' };
+        if (materialExchange.type === 'request') {
+            updates.OfferedBy = userId; 
+        } else if (materialExchange.type === 'offer') {
+            updates.ReceiverID = userId; 
+        }
+
+        // Update the material exchange
+        await materialExchange.update(updates);
+
         res.status(200).json({
             message: 'Material request accepted',
             materialExchange
@@ -124,12 +134,14 @@ export const acceptMaterialRequest = async (req, res) => {
 };
 
 
+
 export const deleteMaterialExchange = async (req, res) => {
     try {
         if (!req.user) {
             return res.status(401).json({ error: 'User not authenticated' });
         }
         const materialId = req.params.id;
+        const userId=req.user.id;
 
         const materialExchange = await MaterialExchange.findOne({
             where: {
@@ -141,6 +153,11 @@ export const deleteMaterialExchange = async (req, res) => {
         if (!materialExchange) {
             return res.status(404).json({ error: 'Material exchange not found or already closed' });
         }
+        
+        if(materialExchange.postedBy!=userId){
+            return res.status(404).json({ error: 'You are not authorized to delete this material exchange' });
+        }
+
 
         await materialExchange.destroy();
         res.status(200).json({
@@ -160,6 +177,7 @@ export const updateMaterialExchange = async (req, res) => {
         }
 
         const materialId = req.params.id; 
+        const userId=req.user.id;
         const { description, location, city, time, keyword } = req.body; 
 
         const materialExchange = await MaterialExchange.findByPk(materialId);
@@ -170,6 +188,10 @@ export const updateMaterialExchange = async (req, res) => {
 
         if (materialExchange.Status !== 'Open') {
             return res.status(400).json({ error: 'Material exchange cannot be updated as it is not open' });
+        }
+
+        if(materialExchange.postedBy!=userId){
+            return res.status(404).json({ error: 'You are not authorized to update this material exchange' });
         }
 
         materialExchange.Description = description || materialExchange.Description;
