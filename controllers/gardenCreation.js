@@ -33,8 +33,7 @@ export async function addGarden(req,res){
 
         });
         res.status(200).json({
-            GardenID: garden.GardenID,
-            Name: garden.Name
+            garden
           });
 
     } catch (error) {
