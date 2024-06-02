@@ -32,11 +32,11 @@ const Task = sequelize.define('Task',
         type: DataTypes.DATE,
         allowNull: false
       },
-      lastUpdate: {
+      completedAT: {
         type: DataTypes.DATE,
         allowNull: true
       },
-      completedAT: {
+      startedAt: {
         type: DataTypes.DATE,
         allowNull: true
       }
