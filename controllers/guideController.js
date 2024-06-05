@@ -4,6 +4,10 @@ import Guide from '../models/guideModel.js';
 export const addGuide = async (req, res) => {
   try {
     //include checking the token to check if user is logged in the system
+    
+//if(!req.user){
+          //  return res.status(401).json({ error: 'User not authenticated' });
+
     const { title, content, author } = req.body;
     const newGuide = await Guide.create({ title, content, author });
     res.status(201).json(newGuide);
@@ -15,6 +19,9 @@ export const addGuide = async (req, res) => {
 export const getAllGuides = async (req, res) => {
   try {
     //include checking the token to check if user is logged in the system
+    
+//if(!req.user){
+          //  return res.status(401).json({ error: 'User not authenticated' });
     const guides = await Guide.findAll();
     res.status(200).json(guides);
   } catch (error) {
@@ -25,6 +32,9 @@ export const getAllGuides = async (req, res) => {
 export const getGuideById = async (req, res) => {
   try {
     //include checking the token to check if user is logged in the system
+    
+//if(!req.user){
+          //  return res.status(401).json({ error: 'User not authenticated' });
     const { id } = req.params;
     const guide = await Guide.findByPk(id);
     if (guide) {
@@ -40,6 +50,9 @@ export const getGuideById = async (req, res) => {
 export const getGuideByTitle = async (req, res) => {
   try {
      //include checking the token to check if user is logged in the system
+    
+//if(!req.user){
+          //  return res.status(401).json({ error: 'User not authenticated' });
     const { title } = req.params; // take it as const {title} = req.query; instead of params for better search handling 
     const guide = await Guide.findOne({ where: { title } });
     if (guide) {
@@ -54,6 +67,9 @@ export const getGuideByTitle = async (req, res) => {
 
 export const updateGuide = async (req, res) => {
   try { //include checking the token and the userId that added the guide
+    
+//if(!req.user){
+          //  return res.status(401).json({ error: 'User not authenticated' });
     const { id } = req.params;
     const { title, content, author } = req.body;
     const guide = await Guide.findByPk(id);
@@ -74,6 +90,9 @@ export const updateGuide = async (req, res) => {
 export const deleteGuide = async (req, res) => {
   try {
     //include checking the token and the userId that added the guide
+    
+//if(!req.user){
+          //  return res.status(401).json({ error: 'User not authenticated' });
     const { id } = req.params;
     const guide = await Guide.findByPk(id);
     if (guide) {
