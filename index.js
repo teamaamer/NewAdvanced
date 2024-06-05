@@ -1,11 +1,12 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+
 
 import userRoutes from './routes/userRoutes.js';
 import exchange from './routes/exchangeRoutes.js';
@@ -19,7 +20,7 @@ app.use('/guides', guideRouter); // Use guideRouter instead of router
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  res.status(500).send("Something went wrong!");
 });
 
 const PORT = process.env.PORT || 3050;
