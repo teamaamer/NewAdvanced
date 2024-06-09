@@ -11,10 +11,10 @@ import authMiddleware from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.post('/plots', authMiddleware, addPlot);
-router.put('/plots/:id', authMiddleware, updatePlot);
-router.delete('/plots/:id', authMiddleware, deletePlot);
-router.get('/plots/garden/:gardenId', authMiddleware, getAllPlotsByGardenId);
-router.get('/plots/:id', authMiddleware, getPlotById);
+plotRouter.post('/plots', authMiddleware, addPlot);
+plotRouter.put('/plots/:id', authMiddleware, updatePlot);
+plotRouter.delete('/plots/:id', authMiddleware, deletePlot);
+plotRouter.get('/plots/garden/:gardenId', authMiddleware, getAllPlotsByGardenId);
+plotRouter.get('/plots/:id', authMiddleware, getPlotById);
 
-export default router;
+export default plotRouter;
