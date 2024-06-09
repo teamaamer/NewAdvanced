@@ -12,11 +12,13 @@ import userRoutes from './routes/userRoutes.js';
 import exchange from './routes/exchangeRoutes.js';
 import gardenRouter from './routes/gardenRoutes.js';
 import guideRouter from './routes/guideRouter.js'; // Corrected import statement
+import plotRoutes from './routes/plotRoutes.js'; // Import plot routes
 
 app.use('/users', userRoutes);
 app.use('/exchange', exchange);
 app.use('/gardens', gardenRouter);
 app.use('/guides', guideRouter); // Use guideRouter instead of router
+app.use('/plots', plotRoutes); // Add plot routes
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
