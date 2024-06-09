@@ -3,10 +3,6 @@ import Plot from '../models/plot';
 
 export const addPlot = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'User not authenticated' });
-    }
-
     const { GardenID, SoilType, Sunlight } = req.body;
     const newPlot = await Plot.create({ GardenID, SoilType, Sunlight });
 
@@ -19,10 +15,6 @@ export const addPlot = async (req, res) => {
 
 export const updatePlot = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'User not authenticated' });
-    }
-
     const { id } = req.params;
     const { GardenID, SoilType, Sunlight } = req.body;
 
@@ -41,10 +33,6 @@ export const updatePlot = async (req, res) => {
 
 export const deletePlot = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'User not authenticated' });
-    }
-
     const { id } = req.params;
     const plot = await Plot.findByPk(id);
     if (!plot) {
@@ -61,10 +49,6 @@ export const deletePlot = async (req, res) => {
 
 export const getAllPlotsByGardenId = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'User not authenticated' });
-    }
-
     const { gardenId } = req.params;
     const plots = await Plot.findAll({ where: { GardenID: gardenId } });
     res.status(200).json(plots);
@@ -76,10 +60,6 @@ export const getAllPlotsByGardenId = async (req, res) => {
 
 export const getPlotById = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'User not authenticated' });
-    }
-
     const { id } = req.params;
     const plot = await Plot.findByPk(id);
     if (!plot) {
