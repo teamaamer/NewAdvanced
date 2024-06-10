@@ -11,12 +11,22 @@ app.use(express.json());
 import userRoutes from './routes/userRoutes.js';
 import exchange from './routes/exchangeRoutes.js';
 import gardenRouter from './routes/gardenRoutes.js';
-import guideRouter from './routes/guideRouter.js'; // Corrected import statement
+
+import eventRouter from './routes/eventRouter.js';
+import orgRouter from './routes/orgRoutes.js';
+import sponRouter from './routes/sponcorshipRoutes.js';
+import guideRouter from './routes/guideRouter.js'; 
+
 
 app.use('/users', userRoutes);
 app.use('/exchange', exchange);
 app.use('/gardens', gardenRouter);
-app.use('/guides', guideRouter); // Use guideRouter instead of router
+
+app.use('/events', eventRouter);
+app.use('/organizations', orgRouter);
+app.use('/sponcorships',sponRouter);
+
+app.use('/guides', guideRouter); 
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
