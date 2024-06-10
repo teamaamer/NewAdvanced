@@ -10,6 +10,7 @@ SET time_zone = "+00:00";
 
 -- Table structure for table `products`
 
+
 CREATE TABLE `products` (
   `ProductID` int(11) NOT NULL,
   `Name` varchar(255) NOT NULL,

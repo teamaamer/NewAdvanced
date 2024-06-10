@@ -19,6 +19,7 @@ CREATE TABLE `services` (
 
 -- Indexes for table `services`
 
+
 ALTER TABLE `services`
   ADD PRIMARY KEY (`ServiceID`);
 FOREIGN KEY (`AddedBy`) REFERENCES `users`(`UserID`)

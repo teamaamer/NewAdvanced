@@ -22,3 +22,4 @@ const Event = sequelize.define('Event', {
 });
 
 export default Event;
+
