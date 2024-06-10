@@ -5,6 +5,7 @@ import { addGarden} from '../controllers/gardenCreation.js';
 import { addTask, getTasksByGardenId,getTaskById, updateTask, deleteTask} from '../controllers/TaskController.js';
 import { joinGarden } from '../controllers/gardenMemebrCont.js';
 import { assignTask,updateTaskStatus} from '../controllers/taskAssignment.js';
+import {addEvent, getEventsByGardenId} from '../controllers/eventController.js';
 
 const gardenRouter = express.Router();
 
@@ -20,5 +21,9 @@ gardenRouter.post('/:gardenId/join',authMiddleware,joinGarden);
 gardenRouter.post('/:gardenId/tasks/:taskId/assign',authMiddleware,assignTask);
 
 gardenRouter.put('/:gardenId/tasks/:taskId/status',authMiddleware,updateTaskStatus);
+
+gardenRouter.post('/:gardenId/events',authMiddleware,addEvent);
+gardenRouter.get('/:gardenId/events',authMiddleware,getEventsByGardenId);
+
 
 export default gardenRouter;
