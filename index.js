@@ -16,7 +16,7 @@ import eventRouter from './routes/eventRouter.js';
 import orgRouter from './routes/orgRoutes.js';
 import sponRouter from './routes/sponcorshipRoutes.js';
 import guideRouter from './routes/guideRouter.js'; 
-
+import weather from './routes/weatherRouter.js';
 
 app.use('/users', userRoutes);
 app.use('/exchange', exchange);
@@ -27,6 +27,7 @@ app.use('/organizations', orgRouter);
 app.use('/sponcorships',sponRouter);
 
 app.use('/guides', guideRouter); 
+app.use('/weather',weather);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
