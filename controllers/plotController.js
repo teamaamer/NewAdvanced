@@ -3,8 +3,13 @@ import Plot from '../models/plot';
 
 export const addPlot = async (req, res) => {
   try {
-    const { GardenID, SoilType, Sunlight } = req.body;
-    const newPlot = await Plot.create({ GardenID, SoilType, Sunlight });
+    if (!req.user) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    const { gardenId } = req.params;
+    const { SoilType, Sunlight } = req.body;
+    const newPlot = await Plot.create({ GardenID: gardenId, SoilType, Sunlight });
 
     res.status(201).json(newPlot);
   } catch (error) {
@@ -15,15 +20,24 @@ export const addPlot = async (req, res) => {
 
 export const updatePlot = async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    // Check if the user is a manager and if the manager ID matches the manager of the garden the plot belongs to
+    if (req.user.type !== 'manager' || req.user.id !== req.plot.GardenID.ManagerID) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
     const { id } = req.params;
-    const { GardenID, SoilType, Sunlight } = req.body;
+    const { SoilType, Sunlight } = req.body;
 
     const plot = await Plot.findByPk(id);
     if (!plot) {
       return res.status(404).json({ error: 'Plot not found' });
     }
 
-    await plot.update({ GardenID, SoilType, Sunlight });
+    await plot.update({ SoilType, Sunlight });
     res.status(200).json(plot);
   } catch (error) {
     console.error('Error updating plot:', error);
@@ -33,6 +47,15 @@ export const updatePlot = async (req, res) => {
 
 export const deletePlot = async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    // Check if the user is a manager and if the manager ID matches the manager of the garden the plot belongs to
+    if (req.user.type !== 'manager' || req.user.id !== req.plot.GardenID.ManagerID) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
     const { id } = req.params;
     const plot = await Plot.findByPk(id);
     if (!plot) {
