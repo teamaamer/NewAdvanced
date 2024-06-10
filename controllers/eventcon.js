@@ -2,7 +2,6 @@ import Event from '../models/event.js';
 import Product from '../models/product.js';
 import Service from '../models/service.js';
 
-
 export const addProduct = async (req, res) => {
     try {
         const { Name, Type, ProviderName } = req.body;
