@@ -1,7 +1,7 @@
 
-import Garden from '../models/gardenModel.js';
-import Task from '../models/taskModel.js';
-import GardenMember from "../models/gardenMember.js";
+import Garden from '../../models/gardenModel.js';
+import Task from '../../models/taskModel.js';
+import GardenMember from "../../models/gardenMember.js";
 
 export async function addTask(req, res) {
     try {

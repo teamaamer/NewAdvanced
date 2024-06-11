@@ -1,5 +1,5 @@
-import GardenMember from "../models/gardenMember.js";
-import Garden from "../models/gardenModel.js";
+import GardenMember from "../../models/gardenMember.js";
+import Garden from "../../models/gardenModel.js";
 
 export async function joinGarden(req, res) {
     try {

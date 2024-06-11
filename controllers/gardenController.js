@@ -1,4 +1,4 @@
-import Garden from "../models/gardenModel.js";
+import Garden from "../../models/gardenModel.js";
 
 export async function addGarden(req, res) {
   try {

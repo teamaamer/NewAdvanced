@@ -1,5 +1,5 @@
 
-import MaterialExchange from '../models/exchangeModel.js';
+import MaterialExchange from '../../models/exchangeModel.js';
 
 export const addMaterialExchange = async (req, res) => {
     try {
