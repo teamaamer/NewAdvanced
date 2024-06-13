@@ -3,8 +3,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- Database: `greenthumb`
---
 
 -- --------------------------------------------------------
 
@@ -22,7 +20,8 @@ CREATE TABLE `products` (
 
 ALTER TABLE `products`
   ADD PRIMARY KEY (`ProductID`);
-FOREIGN KEY (`AddedBy`) REFERENCES `users`(`UserID`)
+ FOREIGN KEY (`AddedBy`) REFERENCES `users`(`UserID`)
+
 -- AUTO_INCREMENT for table `products`
 
 ALTER TABLE `products`

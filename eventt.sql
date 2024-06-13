@@ -25,11 +25,11 @@ SET time_zone = "+00:00";
 
 
 --
--- Table structure for table `eventparticipants`
+-- Table structure for table `event`
 --
 
-CREATE TABLE `eventparticipants` (
-  `EventParticipantID` int(11) NOT NULL,
+CREATE TABLE `event` (
+  `EventPID` int(11) NOT NULL,
   `EventID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -41,8 +41,8 @@ CREATE TABLE `eventparticipants` (
 --
 -- Indexes for table `eventparticipants`
 --
-ALTER TABLE `eventparticipants`
-  ADD PRIMARY KEY (`EventParticipantID`),
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`EventPID`),
   ADD KEY `EventID` (`EventID`),
   ADD KEY `UserID` (`UserID`);
 
@@ -53,8 +53,8 @@ ALTER TABLE `eventparticipants`
 --
 -- AUTO_INCREMENT for table `eventparticipants`
 --
-ALTER TABLE `eventparticipants`
-  MODIFY `EventParticipantID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `event`
+  MODIFY `EventPID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -63,7 +63,7 @@ ALTER TABLE `eventparticipants`
 --
 -- Constraints for table `eventparticipants`
 --
-ALTER TABLE `eventparticipants`
+ALTER TABLE `event`
   ADD CONSTRAINT `eventparticipants_ibfk_1` FOREIGN KEY (`EventID`) REFERENCES `events` (`EventID`),
   ADD CONSTRAINT `eventparticipants_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 COMMIT;

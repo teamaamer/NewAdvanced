@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../db.js';
-
+import User from './userModel.js';
 
 const Product = sequelize.define('Product', {
     ProductID: {
@@ -28,6 +28,14 @@ const Product = sequelize.define('Product', {
 }, {
     tableName: 'products',
     timestamps: false
+});
+
+Product.belongsTo(User, { foreignKey: 'AddedBy' });
+
+Product.sync().then(() => {
+    console.log('Product model synced successfully.');
+}).catch((error) => {
+    console.error('Product model sync failed:', error);
 });
 
 export default Product;

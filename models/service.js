@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../db.js';
-
+import User from './userModel.js';
 
 const Service = sequelize.define('Service', {
     ServiceID: {
@@ -28,6 +28,14 @@ const Service = sequelize.define('Service', {
 }, {
     tableName: 'services',
     timestamps: false
+});
+
+Service.belongsTo(User, { foreignKey: 'AddedBy' });
+
+Service.sync().then(() => {
+    console.log('Service model synced successfully.');
+}).catch((error) => {
+    console.error('Service model sync failed:', error);
 });
 
 export default Service;
