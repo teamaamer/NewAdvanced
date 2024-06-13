@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { getAllEventParticipants, getEventParticipantById, addEventParticipant, updateEventParticipant, deleteEventParticipant } from '../controllers/eventPController.js';
+import { getAllEventParticipants, getEventParticipantById, addEventParticipant, updateEventParticipant, deleteEventParticipant } from '../controllers/eventpcon.js';
 
 router.get('/', getAllEventParticipants);
 router.get('/:id', getEventParticipantById);
