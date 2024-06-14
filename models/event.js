@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../../db.js';
 import Event from './eventModel.js';   
 import User from './userModel.js';
+import db from '../db.js'; 
 
 
 const EventP = sequelize.define('EventP', {
