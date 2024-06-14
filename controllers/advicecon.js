@@ -1,4 +1,5 @@
 import advice from '../models/advice.js';
+import index from '..\index.js';
 
 export async function addAdvice (req, res) {
   try {
