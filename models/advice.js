@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../../db.js'; 
+const sequelize = require('../db.js'); 
 import connectDB from '../../db.js'; 
 
 connectDB();
