@@ -7,7 +7,7 @@ try{
     const{userName, email, password, confirmPassword,role, profileInfo, profilePic}= req.body;
     
     if(!userName || !email || !password || !confirmPassword || !role || !profileInfo || !profilePic){
-        return res.status(400).jason('please fill in all the required fields');
+        return res.status(400).json('please fill in all the required fields');
     }
     if (password.length < 8) {
         return res.status(400).json({ error: "Password must be at least 8 characters long." });
