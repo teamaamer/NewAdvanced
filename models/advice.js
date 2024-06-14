@@ -45,7 +45,7 @@ const Advice = sequelize.define('Advice', {
     }
 }, {
     timestamps: false,
-    tableName: 'advice'
+    tableName: 'advices'
 });
 
 
