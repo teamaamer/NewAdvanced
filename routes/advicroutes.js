@@ -1,9 +1,9 @@
 import express from 'express';
 const router = express.Router();
 
-import { addAdvice,getAllAdvices, getAdvicesById,getAdviceByTitle, updateAdvice, deleteAdvice } from '../controllers/advicecon.js';
+import {addAdvice,getAllAdvices, getAdvicesById,getAdviceByTitle, updateAdvice, deleteAdvice } from '../controllers/advicecon.js';
 
-router.post('/', addAdvice);
+router.post('/',addAdvice);
 router.get('/', getAllAdvices);
 router.get('/:id', getAdvicesById);
 router.get('/title', getAdviceByTitle);

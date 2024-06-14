@@ -6,7 +6,7 @@ export const addadvice = async (req, res) => {
       return res.status(401).json({ error: 'User not authenticated' });
     }
     const { Title, Content, Keyword, URL, AddedBy, Date, Type } = req.body;
-    const newAdvice = await Advice.create({ Title, Content, Keyword, URL, AddedBy, Date, Type });
+    const newAdvice = Advice.create({ Title, Content, Keyword, URL, AddedBy, Date, Type });
     res.status(201).json(newAdvice);
 
   } catch (error) {
