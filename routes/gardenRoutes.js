@@ -1,6 +1,12 @@
 import express from "express";
 import authMiddleware from "../middleware/auth.js";
 
+// import { addGarden} from '../controllers/gardenCreation.js';
+import { addTask, getTasksByGardenId,getTaskById, updateTask, deleteTask} from '../controllers/TaskController.js';
+import { joinGarden } from '../controllers/gardenMemebrCont.js';
+import { assignTask,updateTaskStatus} from '../controllers/taskAssignment.js';
+import {addEvent, getEventsByGardenId} from '../controllers/eventController.js';
+
 import {
   addGarden,
   getAllGardens,
@@ -9,16 +15,17 @@ import {
   deleteGarden,
 } from "../controllers/gardenController.js";
 
-import {
-  addTask,
-  getTasksByGardenId,
-  getTaskById,
-  updateTask,
-  deleteTask,
-} from "../controllers/TaskController.js";
+// import {
+//   addTask,
+//   getTasksByGardenId,
+//   getTaskById,
+//   updateTask,
+//   deleteTask,
+// } from "../controllers/TaskController.js";
 
-import { joinGarden } from "../controllers/gardenMemebrCont.js";
-import { assignTask, updateTaskStatus } from "../controllers/taskAssignment.js";
+// import { joinGarden } from "../controllers/gardenMemebrCont.js";
+// import { assignTask, updateTaskStatus } from "../controllers/taskAssignment.js";
+
 
 const gardenRouter = express.Router();
 
@@ -46,4 +53,15 @@ gardenRouter.get("/:id", authMiddleware, getGardenById);
 gardenRouter.put("/:id", authMiddleware, updateGarden);
 gardenRouter.delete("/:id", authMiddleware, deleteGarden);
 
+
+gardenRouter.post('/:gardenId/tasks/:taskId/assign',authMiddleware,assignTask);
+
+gardenRouter.put('/:gardenId/tasks/:taskId/status',authMiddleware,updateTaskStatus);
+
+gardenRouter.post('/:gardenId/events',authMiddleware,addEvent);
+gardenRouter.get('/:gardenId/events',authMiddleware,getEventsByGardenId);
+
+
+
 export default gardenRouter;
+

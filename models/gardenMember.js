@@ -1,6 +1,7 @@
 
-import { DataTypes } from "sequelize";
-import sequelize from "../db.js";
+import { DataTypes } from 'sequelize';
+import sequelize from '../db.js';
+
 
 const GardenMember = sequelize.define(
   "GardenMember",
