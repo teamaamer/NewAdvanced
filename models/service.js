@@ -1,8 +1,9 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../db.js';
-import User from './userModel.js';
-import db from '../db.js'; 
 
+import connectDB from '../../db.js'; 
+
+connectDB();
 const Service = sequelize.define('Service', {
     ServiceID: {
         type: DataTypes.INTEGER,

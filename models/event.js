@@ -1,10 +1,8 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../../db.js';
-import Event from './eventModel.js';   
-import User from './userModel.js';
-import db from '../db.js'; 
+import sequelize from '../../db.js';   
+import connectDB from '../../db.js'; 
 
-
+connectDB();
 const EventP = sequelize.define('EventP', {
     EventPID: {
         type: DataTypes.INTEGER,
