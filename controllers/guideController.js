@@ -8,10 +8,15 @@ export const addGuide = async (req, res) => {
     }
 
     const { title, author, content, keyword } = req.body;
+
+    if (!title || !author || !content || !keyword) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
     const addedBy = req.user.id; 
     const newGuide = await Guide.create({
       Title: title,
-      Auther: author,
+      Author: author,
       Content: content,
       Keyword: keyword,
       AddedBy: addedBy,
@@ -24,6 +29,7 @@ export const addGuide = async (req, res) => {
     res.status(500).json({ error: 'Failed to add guide' });
   }
 };
+
 
 export const getAllGuides = async (req, res) => {
   try {
