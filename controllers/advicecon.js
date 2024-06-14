@@ -1,6 +1,6 @@
 import advice from '../models/advice.js';
 
-export const addadvice = async (req, res) => {
+export async function addAdvice (req, res) {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -14,7 +14,7 @@ export const addadvice = async (req, res) => {
   }
 };
 
-export const getAlladvices = async (req, res) => {
+export const getAllAdvices = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -27,7 +27,7 @@ export const getAlladvices = async (req, res) => {
   }
 };
 
-export const getadviceById = async (req, res) => {
+export const getAdvicesById = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -45,7 +45,7 @@ export const getadviceById = async (req, res) => {
   }
 };
 
-export const getadviceByTitle = async (req, res) => {
+export const getAdviceByTitle = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -63,7 +63,7 @@ export const getadviceByTitle = async (req, res) => {
   }
 };
 
-export const updateadvice = async (req, res) => {
+export const updateAdvice = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -90,7 +90,7 @@ export const updateadvice = async (req, res) => {
   }
 };
 
-export const deleteadvice = async (req, res) => {
+export const deleteAdvice = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
