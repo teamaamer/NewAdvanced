@@ -7,15 +7,15 @@ const app = express();
 
 app.use(express.json());
 
-import adviceRouters from './routes/advicroutes.js';
-import eventpRouter from './routes/eventroutes.js';
+import adviceRouter from './routes/adviceroutes.js';
+import eventRouter from './routes/eventroutes.js';
 import productRouter from './routes/prorouter.js';
 import serviceRouter from './routes/serrouters.js';
 
-app.use('/advices', adviseRouter);
+app.use('/advices', adviceRouter);
 app.use('/products', productRouter);
 app.use('/services', serviceRouter);
-app.use('/eventp', eventPRouter);
+app.use('/events', eventRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
