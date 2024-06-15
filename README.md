@@ -82,5 +82,16 @@ Error Handling and Logging
 The API implements error handling and logging to help with debugging and troubleshooting.
 ---
 
+[API Documentation ](https://drive.google.com/drive/folders/1pjQZbFRfrPTtUh4uMt2LGaSk_39EZ-89)Documentation
+Wiki Maintenance
 
+A comprehensive wiki is maintained for the project, describing the project architecture, usage, and motivation for all choices.
+
+API Documentation
+
+API documentation is provided using tools like Swagger or Postman to enable other developers to understand how to use the API.
+
+Testing Documentation
+
+Detailed documentation of the testing process, including planning and execution, is provided.
    
