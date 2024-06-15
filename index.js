@@ -7,28 +7,31 @@ const app = express();
 
 app.use(express.json());
 
+import userRoutes from "./routes/userRoutes.js";
+import exchange from "./routes/exchangeRoutes.js";
+import gardenRouter from "./routes/gardenRoutes.js";
 
-import userRoutes from './routes/userRoutes.js';
-import exchange from './routes/exchangeRoutes.js';
-import gardenRouter from './routes/gardenRoutes.js';
+import eventRouter from "./routes/eventRouter.js";
+import orgRouter from "./routes/orgRoutes.js";
+import sponRouter from "./routes/sponcorshipRoutes.js";
+import guideRouter from "./routes/guideRouter.js";
+import weather from "./routes/weatherRouter.js";
 
-import eventRouter from './routes/eventRouter.js';
-import orgRouter from './routes/orgRoutes.js';
-import sponRouter from './routes/sponcorshipRoutes.js';
-import guideRouter from './routes/guideRouter.js'; 
-import weather from './routes/weatherRouter.js';
+import crop from "./routes/cropsRouter.js";
+
+app.use("/users", userRoutes);
+app.use("/exchange", exchange);
+app.use("/gardens", gardenRouter);
 
 
-app.use('/users', userRoutes);
-app.use('/exchange', exchange);
-app.use('/gardens', gardenRouter);
+app.use("/events", eventRouter);
+app.use("/organizations", orgRouter);
+app.use("/sponcorships", sponRouter);
 
-app.use('/events', eventRouter);
-app.use('/organizations', orgRouter);
-app.use('/sponcorships',sponRouter);
+app.use("/guides", guideRouter);
+app.use("/weather", weather);
 
-app.use('/guides', guideRouter); 
-app.use('/weather',weather);
+app.use("/crops", crop);
 
 
 app.use((err, req, res, next) => {

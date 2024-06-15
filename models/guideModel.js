@@ -11,7 +11,7 @@ const Guide = sequelize.define('Guide', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  Auther: {
+  Author: {
     type: DataTypes.STRING,
     allowNull: false,
   },

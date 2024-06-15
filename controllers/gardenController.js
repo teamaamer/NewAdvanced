@@ -59,9 +59,9 @@ export const getAllGardens = async (req, res) => {
     const userId = req.user.id;
     const type = req.user.type;
 
-    if (type != "Manager") {
-      return res.status(401).json({ error: "Not permitted to add garden" });
-    }
+    // if (type != "Manager") {
+    //   return res.status(401).json({ error: "Not permitted to add garden" });
+    // }
 
     const gardens = await Garden.findAll();
     res.status(200).json(gardens);
@@ -77,9 +77,9 @@ export const getGardenById = async (req, res) => {
   const userId = req.user.id;
   const type = req.user.type;
 
-  if (type != "Manager") {
-    return res.status(401).json({ error: "Not permitted to add garden" });
-  }
+  // if (type != "Manager") {
+  //   return res.status(401).json({ error: "Not permitted to add garden" });
+  // }
 
   const { id } = req.params;
   try {
@@ -112,6 +112,9 @@ export const updateGarden = async (req, res) => {
     if (!garden) {
       return res.status(404).json({ error: "Garden not found" });
     }
+     if(garden.ManagerID!== userId){
+        return res.status(404).json({ error: "you are not permitted to update the garden" });
+     }
 
     if (garden.Name == Name) {
       return res.status(400).json({ error: "Garden already exists" });
@@ -147,6 +150,10 @@ export const deleteGarden = async (req, res) => {
     if (!garden) {
       return res.status(404).json({ error: "Garden not found" });
     }
+    if(garden.ManagerID!== userId){
+        return res.status(404).json({ error: "you are not permitted to delete the garden" });
+     }
+
     await garden.destroy();
     res.status(204).json({ message: "Garden deleted successfully" });
   } catch (error) {
