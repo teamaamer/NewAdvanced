@@ -9,6 +9,8 @@ export const addGuide = async (req, res) => {
 
     const { title, author, content, keyword } = req.body;
 
+
+
     if (!title || !author || !content || !keyword) {
       return res.status(400).json({ error: 'All fields are required' });
     }
