@@ -69,7 +69,17 @@ When building the GreenThumb Project we followed Layered architecture, ensuring 
 * Implementation Development of the backend API using Node.js and Express framework.
 
 * Testing and Debugging Comprehensive testing and debugging to ensure functionality and reliability of the API.
+Additional Features : User Privacy and Data Security
 
+Implementation of stringent privacy and security measures to protect users' data.
+
+Roles
+
+Role-based access control to manage permissions for different types of users.
+
+Error Handling and Logging
+
+The API implements error handling and logging to help with debugging and troubleshooting.
 ---
 
 
