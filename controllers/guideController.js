@@ -3,15 +3,24 @@ import Guide from '../models/guideModel.js';
 
 export const addGuide = async (req, res) => {
   try {
-    //include checking the token to check if user is logged in the system
-    
-//if(!req.user){
-          //  return res.status(401).json({ error: 'User not authenticated' });
+    if (!req.user) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
 
-    const { title, content, author } = req.body;
-    const newGuide = await Guide.create({ title, content, author });
+    const { title, author, content, keyword } = req.body;
+    const addedBy = req.user.id; 
+    const newGuide = await Guide.create({
+      Title: title,
+      Auther: author,
+      Content: content,
+      Keyword: keyword,
+      AddedBy: addedBy,
+      Date: new Date()
+    });
+
     res.status(201).json(newGuide);
   } catch (error) {
+    console.error('Error adding guide:', error);
     res.status(500).json({ error: 'Failed to add guide' });
   }
 };

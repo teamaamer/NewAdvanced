@@ -1,6 +1,7 @@
 
 import { DataTypes } from 'sequelize';
 import sequelize from '../db.js';
+import User from '../models/userModel.js';
 
 
 const GardenMember = sequelize.define(
@@ -33,5 +34,6 @@ GardenMember.sync()
   .catch((error) => {
     console.error("Synchronization failed:", error);
   });
-
+  GardenMember.belongsTo(User, { foreignKey: 'UserID' });
+  
 export default GardenMember;
